@@ -1,7 +1,6 @@
 import com.recipeapp.datahandler.CSVDataHandler;
 import com.recipeapp.datahandler.DataHandler;
 import com.recipeapp.datahandler.JSONDataHandler;
-import com.recipeapp.model.Recipe;
 import com.recipeapp.ui.RecipeUI;
 import java.io.*;
 

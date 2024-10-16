@@ -2,10 +2,13 @@ package com.recipeapp.datahandler;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOError;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
+
+
 
 import com.recipeapp.model.Ingredient;
 import com.recipeapp.model.Recipe;
@@ -39,15 +42,30 @@ public class CSVDataHandler implements DataHandler{
     
             Recipe recipe = new Recipe(recipeName, ingredients);
             filerecipe.add(recipe);
-        
             }
-            return filerecipe;
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
         }
+        return filerecipe;
     }
     public void writeData(Recipe recipe){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            
+            String recipeName = recipe.getName();
+            
+            StringBuilder ingredientsList = new StringBuilder();
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                ingredientsList.append(ingredient.getName()).append(", ");
+            }
 
+            String recipeLine = recipeName + "," + ingredientsList.toString();
+            writer.write(recipeLine);
+            writer.newLine();
+
+            System.out.println("Recipe added successfully.");
+        } catch (IOException e) {
+            System.err.println("Failed to add new recipe: " + e.getMessage());
+        }
     }
     public ArrayList<Recipe> searchData(String keyword){
         return null;
