@@ -1,6 +1,7 @@
 import com.recipeapp.datahandler.CSVDataHandler;
 import com.recipeapp.datahandler.DataHandler;
 import com.recipeapp.datahandler.JSONDataHandler;
+import com.recipeapp.model.Recipe;
 import com.recipeapp.ui.RecipeUI;
 import java.io.*;
 
@@ -14,6 +15,20 @@ public class App {
             System.out.println("2. JSON");
             System.out.print("Select (1/2): ");
             String choice = reader.readLine();
+            
+
+            DataHandler dataHandler;
+            switch (choice) {
+                case "2":
+                    dataHandler = new JSONDataHandler();
+                    break;
+                default:
+                    dataHandler = new CSVDataHandler();
+                    break;
+            }
+            
+            RecipeUI recipeUI = new RecipeUI(dataHandler);
+            recipeUI.displayMenu();
             
 
         } catch (Exception e) {
